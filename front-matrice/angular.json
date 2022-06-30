@@ -3,14 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "matrice": {
+    "front-matrice": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -20,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/matrice",
+            "outputPath": "dist/front-matrice",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "matrice:build:production"
+              "browserTarget": "front-matrice:build:production"
             },
             "development": {
-              "browserTarget": "matrice:build:development"
+              "browserTarget": "front-matrice:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "matrice:build"
+            "browserTarget": "front-matrice:build"
           }
         },
         "test": {
@@ -106,6 +103,5 @@
         }
       }
     }
-  },
-  "defaultProject": "matrice"
+  }
 }
