@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Etudiants, MatricesData } from './output';
 import { AuthModule } from './auth/auth.module';
+import { EtudiantsModule } from './etudiants/etudiants.module';
+import { MatricesDataModule } from './matrices-data/matrices-data.module';
 
 @Module({
   imports: [
@@ -20,7 +22,9 @@ import { AuthModule } from './auth/auth.module';
       entities: [ Etudiants, MatricesData ],
       autoLoadEntities: true
     }),
-    AuthModule
+    AuthModule,
+    EtudiantsModule,
+    MatricesDataModule
   ]
 })
 export class AppModule {}
