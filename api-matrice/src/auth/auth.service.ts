@@ -47,11 +47,12 @@ export class AuthService {
         .createQueryBuilder('e')
         .select([ "e.id" ])
         .where(`(e.nom=:nom AND e.prenoms=:prenoms) 
-            OR e.prenom_usuel=:prenom_usuel 
+            OR (e.prenom_usuel=:prenom_usuel AND e.promotion=:promotion)
             OR e.password=:password`, {
                 nom: donnees.nom,
                 prenoms: donnees.prenoms,
                 prenom_usuel: donnees.prenom_usuel,
+                promotion: donnees.promotion,
                 password: donnees.password
             })
         .getRawOne();
