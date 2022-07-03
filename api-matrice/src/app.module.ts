@@ -5,6 +5,7 @@ import { Etudiants, MatricesData } from './output';
 import { AuthModule } from './auth/auth.module';
 import { EtudiantsModule } from './etudiants/etudiants.module';
 import { MatricesDataModule } from './matrices-data/matrices-data.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -22,9 +23,8 @@ import { MatricesDataModule } from './matrices-data/matrices-data.module';
       entities: [ Etudiants, MatricesData ],
       autoLoadEntities: true
     }),
-    AuthModule,
-    EtudiantsModule,
-    MatricesDataModule
+    AuthModule, EtudiantsModule,
+    MatricesDataModule, SchedulerModule
   ]
 })
 export class AppModule {}
