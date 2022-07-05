@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Workbook } from 'exceljs'; 
+import { join } from 'path';
 import { Etudiants, MatricesData } from 'src/output';
 import { Repository } from 'typeorm';
 import { DataMatriceDto } from './dto';
@@ -68,7 +69,12 @@ export class SchedulerService {
             to: process.env.GMAIL_DEST,
             from: process.env.GMAIL_USER,
             subject: 'Nestjs sending mail !',
-            html: "<h1>Greeting citizens of the world.</h1>"
+            html: "<h1>Greeting citizens of the world.</h1>",
+            attachments: [{
+                path: './uploads/',
+                filename: 'Matrices_foyer_LORD',
+                contentDisposition: 'attachment'
+            }]
         });
     }
 }
