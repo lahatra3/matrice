@@ -1,3 +1,4 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,10 +9,12 @@ import { DataMatriceDto } from './dto';
 
 @Injectable()
 export class SchedulerService {
+    private workbook = new Workbook();
+
     constructor(
         @InjectRepository(MatricesData)
         private matricesRepository: Repository<MatricesData>,
-        private workbook: Workbook
+        private mailerService: MailerService
     ) {}
 
     private async findMatrices(): Promise<DataMatriceDto[]> {
@@ -54,12 +57,18 @@ export class SchedulerService {
 
 
 
-    @Cron('1 3 3 */2 *')
+    @Cron('* * * * *')
     async launchTasks(): Promise<void> {
         const matrices: DataMatriceDto[] = await this.findMatrices();
         const pathFile: string = './uploads/Matrice_foyer_lord.xlsx';
         if(matrices) {
             this.writeData(pathFile, matrices);
         }
+       await this.mailerService.sendMail({
+            to: process.env.GMAIL_DEST,
+            from: process.env.GMAIL_USER,
+            subject: 'Nestjs sending mail !',
+            html: "<h1>Greeting citizens of the world.</h1>"
+        });
     }
 }
