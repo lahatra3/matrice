@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Workbook } from 'exceljs'; 
-import { join } from 'path';
 import { Etudiants, MatricesData } from 'src/output';
 import { Repository } from 'typeorm';
 import { DataMatriceDto } from './dto';
@@ -56,22 +55,20 @@ export class SchedulerService {
         });
     }
 
-
-
-    @Cron('* * * * *')
+    @Cron('1 3 3 */2 *')
     async launchTasks(): Promise<void> {
         const matrices: DataMatriceDto[] = await this.findMatrices();
         const pathFile: string = './uploads/Matrice_foyer_lord.xlsx';
         if(matrices) {
             this.writeData(pathFile, matrices);
         }
-       await this.mailerService.sendMail({
+        await this.mailerService.sendMail({
             to: process.env.GMAIL_DEST,
             from: process.env.GMAIL_USER,
             subject: 'Nestjs sending mail !',
             html: "<h1>Greeting citizens of the world.</h1>",
             attachments: [{
-                path: './uploads/',
+                path: './uploads/Matrice_foyer_lord.xlsx',
                 filename: 'Matrices_foyer_LORD',
                 contentDisposition: 'attachment'
             }]
